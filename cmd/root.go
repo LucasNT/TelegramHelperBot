@@ -51,7 +51,7 @@ func newRootCmd() *cobra.Command {
 			slog.SetDefault(logger)
 
 			slog.DebugContext(ctx, "Creating the bot")
-			tbt, err := telegrambot.Initialization()
+			tbt, err := telegrambot.Initialization(ctx)
 			if err != nil {
 				slog.Default().Error("Critical Error, failed to create bot", "error", err)
 				os.Exit(1)
