@@ -4,6 +4,7 @@ package cmd
 import (
 	"context"
 	"log/slog"
+	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -11,6 +12,7 @@ import (
 
 	"github.com/LucasNT/TorrentHelperBot/internal/config"
 	"github.com/LucasNT/TorrentHelperBot/internal/logging"
+	telegrambot "github.com/LucasNT/TorrentHelperBot/internal/telegram-bot"
 )
 
 // newRootCmd monta o comando raiz com sua própria instância do Viper, evitando
@@ -47,6 +49,16 @@ func newRootCmd() *cobra.Command {
 
 			logger := logging.New(cfg.LogLevel)
 			slog.SetDefault(logger)
+
+			slog.DebugContext(ctx, "Creating the bot")
+			tbt, err := telegrambot.Initialization()
+			if err != nil {
+				slog.Default().Error("Critical Error, failed to create bot", "error", err)
+				os.Exit(1)
+			}
+
+			slog.Default().Info("Starting bot")
+			tbt.Start(ctx)
 
 			return nil
 		},
