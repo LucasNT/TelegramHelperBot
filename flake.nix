@@ -25,5 +25,6 @@
         packages = nativeBuildInputs ++ developmentPakcages
           ++ [ pkgs.bashInteractive ];
       };
+      nixosModules = import ./nixosModule;
     };
 }
