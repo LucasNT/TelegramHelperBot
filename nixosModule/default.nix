@@ -39,27 +39,26 @@ in {
         ExecStart = "${cfg.package}/bin/TorrentHelperBot";
         Restart = "on-failure";
         RestartSec = 5;
+        DynamicUser = true;
+        StateDirectory = "TorrentHelperBot";
+        RuntimeDirectory = "TorrentHelperBot";
+        WorkingDirecctory = "/var/lib/TorrentHelperBot";
+
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [ "AF_INET" ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
       };
-
-      DynamicUser = true;
-      StateDirectory = "TorrentHelperBot";
-      RuntimeDirectory = "TorrentHelperBot";
-      WorkingDirecctory = "/var/lib/TorrentHelperBot";
-
-      NoNewPrivileges = true;
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      PrivateTmp = true;
-      PrivateDevices = true;
-      ProtectKernelTunables = true;
-      ProtectKernelModules = true;
-      ProtectControlGroups = true;
-      RestrictAddressFamilies = [ "AF_INET" ];
-      RestrictNamespaces = true;
-      LockPersonality = true;
-      MemoryDenyWriteExecute = true;
-      SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
     };
   };
 }
