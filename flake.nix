@@ -29,6 +29,6 @@
       nixosModules.torrentHelperBot = {pkgs, lib, ...}: {
         imports = [ ./nixosModule ];
         services.TorrentHelperBot.package = lib.mkDefault self.packages.${system}.default;
-      } import ./nixosModule;
+      };
     };
 }
