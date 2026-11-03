@@ -6,7 +6,6 @@ in {
     enable = lib.mkEnableOption "Enable torrent helper bot service";
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.torrentHelperBot;
       description = "Package for torrent helper bot";
     };
     allowedUsers = lib.mkOption {

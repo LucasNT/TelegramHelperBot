@@ -13,22 +13,22 @@
       developmentPakcages = with pkgs; [ gopls delve ];
     in {
 
-      overlays.default = final: prev: {
-        torrentHelperBot = pkgs.buildGoModule  {
-          pname = "Torrent Helper Bot";
-          version = "0.0.1";
-          src = ./.;
-          vendorHash = "sha256-iGtV8n1mo7OBtdHgnLs5jqCwFLoaKYVLIZmYAiuVxH0=";
-          env = { CGO_ENABLED = 0; };
-        };
+      packages.${system}.default = pkgs.buildGoModule {
+        pname = "Torrent Helper Bot";
+        version = "0.0.1";
+        src = ./.;
+        vendorHash = "sha256-iGtV8n1mo7OBtdHgnLs5jqCwFLoaKYVLIZmYAiuVxH0=";
+        # subPackages = [ "path1", "path2" ]
+        env = { CGO_ENABLED = 0; };
       };
-      packages.${system}.torrentHelperBot =
-        (import nixpkgs { inherit system; overlays = [ self.overlays.default ]; }).torrentHelperBot;
 
       devShells.${system}.default = pkgs.mkShell {
         packages = nativeBuildInputs ++ developmentPakcages
           ++ [ pkgs.bashInteractive ];
       };
-      nixosModules.torrentHelperBot = import ./nixosModule;
+      nixosModules.torrentHelperBot = {pkgs, lib, ...}: {
+        imports = [ ./nixosModule ];
+        services.TorrentHelperBot.package = lib.mkDefault self.packages.${system}.default;
+      } import ./nixosModule;
     };
 }
