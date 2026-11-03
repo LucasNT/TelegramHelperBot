@@ -1,4 +1,4 @@
-{ config, lib, pkgs, self, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.TorrentHelperBot;
 in {
@@ -6,7 +6,7 @@ in {
     enable = lib.mkEnableOption "Enable torrent helper bot service";
     package = lib.mkOption {
       type = lib.types.package;
-      default = self.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      default = pkgs.torrentHelperBot;
       description = "Package for torrent helper bot";
     };
     allowedUsers = lib.mkOption {
