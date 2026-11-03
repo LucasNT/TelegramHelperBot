@@ -27,7 +27,7 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.services."torrent-helper-bot" = {
       environment = {
-        TORRENT_HELPER_BOT_ALLOWED_USERS = lib.escapeShellArgs cfg.allowedUsers;
+        TORRENT_HELPER_BOT_ALLOWED_USERS_ID = lib.escapeShellArgs cfg.allowedUsers;
         TORRENT_HELPER_BOT_TELEGRAM_BOT_TOKEN = cfg.telegramBotTokenPath;
         TORRENT_HELPER_BOT_TRANSMISSION_RPC_URL = cfg.transmissionRpcUrl;
       };
