@@ -25,6 +25,6 @@
         packages = nativeBuildInputs ++ developmentPakcages
           ++ [ pkgs.bashInteractive ];
       };
-      nixosModules.telegramHelperBot = import ./nixosModule;
+      nixosModules.telegramHelperBot = import ./nixosModule {self = self;};
     };
 }
